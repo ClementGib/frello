@@ -6,11 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,5 +44,21 @@ public class UserResourceTest {
 
         // Assert
         assertThat(actualUser).isEqualTo(null);
+    }
+
+    @Test
+    public void shouldCreateUser_whenServiceCreatesUser() {
+        // Arrange
+        User newUser = new User();
+        newUser.setUserId(1L);
+        newUser.setUserName("Clem The Best");
+        newUser.setEmail("clem@hotmail.fr");
+        when(userService.createUser(newUser)).thenReturn(newUser);
+
+        // Act
+        User actualUser = userResource.createUser(newUser);
+
+        // Assert
+        assertThat(actualUser).isEqualTo(newUser);
     }
 }

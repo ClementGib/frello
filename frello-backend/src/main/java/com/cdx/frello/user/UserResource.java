@@ -10,7 +10,7 @@ public class UserResource {
 
     @Autowired
     UserService userService;
-  
+
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
         return userService.getUser(id);
