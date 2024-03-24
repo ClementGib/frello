@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+  postgresql-db:
+    image: postgres:latest
+    ports:
+     - 15432:5432
+    environment:
+     - POSTGRES_USER=frelloadm
+     - POSTGRES_PASSWORD=admin
+     - POSTGRES_DB=frellodb
+    volumes:
+     - ./init-pg.sql:/docker-entrypoint-initdb.d/init-pg.sql:z
+     - ./insert-pg.sql:/docker-entrypoint-initdb.d/insert-pg.sql:z
+    networks:
+     - frello-network
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-test@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+     - ./servers.json:/pgadmin4/servers.json:z
+    ports:
+      - "${PGADMIN_PORT:-15050}:80"
+    networks:
+      - frello-network
+
+networks:
+  frello-network:
+   name: frello-network
