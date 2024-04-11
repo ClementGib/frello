@@ -1,25 +1,36 @@
 package com.cdx.frello.user;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@Entity
+@Table(name = "user", schema = "frelloapp")
 public class User {
+
+    @Id
+    @Column(name = "user_id")
+    private Long userId;
     private String userName;
-    private String firstName;
-
-    private String lastName;
-
-    private Gender gender;
-
+    private String name;
     private LocalDate birthdate;
-
     private String country;
-
     private String email;
 
-    private Map<String, String> metadata = new HashMap<>();
+    @Enumerated(EnumType.STRING)
+    @Column(length = 255) // Adjust the length as needed
+    private Gender gender;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getUserName() {
         return userName;
@@ -29,28 +40,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDate getBirthdate() {
@@ -77,31 +72,11 @@ public class User {
         this.email = email;
     }
 
-    public Map<String, String> getMetadata() {
-        return metadata;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setMetadata(Map<String, String> metadata) {
-        this.metadata = metadata;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(userName, user.userName)
-                && Objects.equals(firstName, user.firstName)
-                && Objects.equals(lastName, user.lastName)
-                && gender == user.gender
-                && Objects.equals(birthdate, user.birthdate)
-                && Objects.equals(country, user.country)
-                && Objects.equals(email, user.email)
-                && Objects.equals(metadata, user.metadata);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userName, firstName, lastName, gender, birthdate, country, email, metadata);
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }
