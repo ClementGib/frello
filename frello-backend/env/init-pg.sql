@@ -12,7 +12,7 @@ CREATE TABLE frelloapp.User
     birthdate DATE NOT NULL,
     country   VARCHAR(3) NOT NULL,
     email     VARCHAR(255) UNIQUE NOT NULL,
-        gender    VARCHAR(255),
+    gender    VARCHAR(12),
     CONSTRAINT pk_user PRIMARY KEY (user_id)
 );
 
